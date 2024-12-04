@@ -181,7 +181,102 @@ return Response(content=output_bytes.read(), media_type="image/png")
 - **Fault Tolerance**: Ray actors ensure robust fault handling.
 - **Parallelism**: Efficiently handles tasks across CPUs/GPUs for high performance.
 
-**Steps to Deploy DeeplabV3 Segmentation Model Using Ray In Hindi**
+### Step-by-Step Guide for Running the DeepLab Application
+
+---
+
+#### **1. Create a Virtual Environment:**
+A virtual environment isolates your Python project and its dependencies from the global environment.
+
+```bash
+# a) Create a virtual environment named "myenv"
+python -m venv myenv 
+
+# b) Set the execution policy (for Windows users, to allow script execution)
+Set-ExecutionPolicy RemoteSigned -Scope Process
+
+# c) Activate the virtual environment
+myenv\Scripts\activate
+
+# d) Deactivate the environment when done
+deactivate
+```
+
+---
+
+#### **2. Install Necessary Libraries:**
+Ensure you have all required libraries including Ray Serve and Uvicorn for deployment.
+
+```bash
+pip install ray serve uvicorn requests torchvision
+```
+
+---
+
+#### **3. Run the `deeplab.py` File:**
+This script contains the DeepLab model deployment logic.
+
+```bash
+python deeplab.py
+```
+
+---
+
+#### **4. Start the Ray Serve Cluster in a New Terminal:**
+To ensure Ray Serve is running correctly, follow these steps:
+
+```bash
+# a) Stop any existing Ray instance
+ray stop
+
+# b) Start Ray in head mode
+ray start --head
+
+# c) Launch the Uvicorn server to host the application
+uvicorn deeplab:app --host 0.0.0.0 --port 8000
+```
+
+---
+
+#### **5. Navigate to the Project Directory:**
+Open another terminal and navigate to the directory where `deeplab.py` is located.
+
+```bash
+cd path\to\deeplab.py
+```
+
+---
+
+#### **6. Send an Image URL for Segmentation Using cURL:**
+Use the following `curl` command to send an image URL to the model for segmentation. The output will be saved locally.
+
+```bash
+curl -X POST "http://localhost:8000/segment" \
+-H "Content-Type: application/json" \
+-d "{\"image_url\": \"your_input_image_url\"}" \
+--output "your_local_output_file_directory_path\output_image1.png"
+```
+
+**Example:**
+```bash
+curl -X POST "http://localhost:8000/segment" \
+-H "Content-Type: application/json" \
+-d "{\"image_url\": \"https://cdn.pixabay.com/photo/2024/11/07/03/12/lizard-9179598_960_720.jpg\"}" \
+--output "C:\Users\YourName\Pictures\output_image1.png"
+```
+
+---
+
+### **Summary of the Process:**
+1. **Create and activate** a virtual environment.
+2. **Install the required libraries** such as Ray Serve and Uvicorn.
+3. **Run the DeepLab model script** (`deeplab.py`).
+4. **Start Ray and Uvicorn server** to expose the model via an API.
+5. **Use cURL to send an image URL** to the server and save the output locally.
+
+This process will enable segmentation of input images through a locally hosted web service.
+
+# **Steps to Deploy DeeplabV3 Segmentation Model Using Ray In Hindi**
 
 ## **Phase 1: System Initialization and Ray Serve Setup**
 
@@ -346,3 +441,98 @@ return Response(content=output_bytes.read(), media_type="image/png")
 4. **Output Generation Phase**: Segmentation mask ko colorize karke client ko PNG response bhejna.
 
 **Ray ka fayda**: Scalability, parallel processing aur efficient request handling.
+
+### Step-by-Step Guide for Running the DeepLab Application
+
+---
+
+#### **1. Create a Virtual Environment:**
+A virtual environment isolates your Python project and its dependencies from the global environment.
+
+```bash
+# a) Create a virtual environment named "myenv"
+python -m venv myenv 
+
+# b) Set the execution policy (for Windows users, to allow script execution)
+Set-ExecutionPolicy RemoteSigned -Scope Process
+
+# c) Activate the virtual environment
+myenv\Scripts\activate
+
+# d) Deactivate the environment when done
+deactivate
+```
+
+---
+
+#### **2. Install Necessary Libraries:**
+Ensure you have all required libraries including Ray Serve and Uvicorn for deployment.
+
+```bash
+pip install ray serve uvicorn requests torchvision
+```
+
+---
+
+#### **3. Run the `deeplab.py` File:**
+This script contains the DeepLab model deployment logic.
+
+```bash
+python deeplab.py
+```
+
+---
+
+#### **4. Start the Ray Serve Cluster in a New Terminal:**
+To ensure Ray Serve is running correctly, follow these steps:
+
+```bash
+# a) Stop any existing Ray instance
+ray stop
+
+# b) Start Ray in head mode
+ray start --head
+
+# c) Launch the Uvicorn server to host the application
+uvicorn deeplab:app --host 0.0.0.0 --port 8000
+```
+
+---
+
+#### **5. Navigate to the Project Directory:**
+Open another terminal and navigate to the directory where `deeplab.py` is located.
+
+```bash
+cd path\to\deeplab.py
+```
+
+---
+
+#### **6. Send an Image URL for Segmentation Using cURL:**
+Use the following `curl` command to send an image URL to the model for segmentation. The output will be saved locally.
+
+```bash
+curl -X POST "http://localhost:8000/segment" \
+-H "Content-Type: application/json" \
+-d "{\"image_url\": \"your_input_image_url\"}" \
+--output "your_local_output_file_directory_path\output_image1.png"
+```
+
+**Example:**
+```bash
+curl -X POST "http://localhost:8000/segment" \
+-H "Content-Type: application/json" \
+-d "{\"image_url\": \"https://cdn.pixabay.com/photo/2024/11/07/03/12/lizard-9179598_960_720.jpg\"}" \
+--output "C:\Users\YourName\Pictures\output_image1.png"
+```
+
+---
+
+### **Summary of the Process:**
+1. **Create and activate** a virtual environment.
+2. **Install the required libraries** such as Ray Serve and Uvicorn.
+3. **Run the DeepLab model script** (`deeplab.py`).
+4. **Start Ray and Uvicorn server** to expose the model via an API.
+5. **Use cURL to send an image URL** to the server and save the output locally.
+
+This process will enable segmentation of input images through a locally hosted web service.
