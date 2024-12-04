@@ -1,4 +1,4 @@
-**Steps to Deploy DeeplabV3 Segmentation Model Using Ray In English**
+**Steps to Deploy DeeplabV3 Segmentation Model Using Ray**
 
 ## **Phase 1: System Initialization and Ray Serve Setup**
 
